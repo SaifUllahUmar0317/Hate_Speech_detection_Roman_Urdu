@@ -111,6 +111,8 @@ If you want to run this app on your own computer, follow these steps:
 ├── README.md                   # Project documentation
 └── dataset.csv                 # (Optional) The dataset used for training
 
+---
+
 ## 🛠 Technologies Used
 * **[Python](https://www.python.org/)**: Core programming language.
 * **[Streamlit](https://streamlit.io/)**: For building the web interface.
