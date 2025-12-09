@@ -113,9 +113,7 @@ If you want to run this app on your own computer, follow these steps:
 
 ---
 
-## 🛠 Technologies UsedProject Structure
-
-```text
+## 🛠 Technologies Used
 * **[Python](https://www.python.org/)**: Core programming language.
 * **[Streamlit](https://streamlit.io/)**: For building the web interface.
 * **[Scikit-Learn](https://scikit-learn.org/)**: For model training and vectorization.
@@ -125,8 +123,7 @@ If you want to run this app on your own computer, follow these steps:
 ---
 
 ## 👤 Author
-**[SAIF ULLAH UMAR]**
-**[AI & ML Engineer]**
-
+**SAIF ULLAH UMAR**
+**AI & ML Engineer**
 
 - Check out my [GitHub](https://github.com/SaifUllahUmar0317/)
