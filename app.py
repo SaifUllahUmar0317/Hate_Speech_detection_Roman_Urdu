@@ -295,7 +295,7 @@ with st.sidebar:
                    'threshold': {'line': {'color': "red", 'width': 4},
                                 'thickness': 0.75, 'value': 90}}))
         fig.update_layout(height=200, margin=dict(l=20, r=20, t=40, b=20))
-        st.plotly_chart(fig, width="stretch")
+        st.plotly_chart(fig, use_container_width=True)
     
     st.markdown("---")
     
@@ -367,31 +367,32 @@ with tab1:
             "🚫 Another Hate": "Dafa ho jao, badtameez"  # Will be classified as HATE
         }
         
+        # Initialize session state
+        if "main_input" not in st.session_state:
+            st.session_state.main_input = ""
+
+        # Example buttons
         for idx, (label, text) in enumerate(examples.items()):
             with example_cols[idx % 4]:
                 if st.button(label, key=f"ex_{idx}", width="stretch"):
-                    st.session_state.current_text = text
-        
-        # Main text input
-        if 'current_text' not in st.session_state:
-            st.session_state.current_text = ""
-        
+                    st.session_state.main_input = text
+
+        # Text area
         user_input = st.text_area(
             "**Type or paste Roman Urdu text:**",
-            value=st.session_state.current_text,
-            placeholder="Example: Tum bohat bure ho, tumhari soch kharab hai...",
             height=150,
-            key="main_input"
+            key="main_input",
+            placeholder="Example: Tum bohat bure ho, tumhari soch kharab hai..."
         )
         
         # Analysis options
         col_a, col_b, col_c = st.columns([1, 1, 2])
         with col_a:
-            analyze_btn = st.button("Analyze Now", type="primary", width="stretch")
+            analyze_btn = st.button("Analyze Now", type="primary", use_container_width=True)
         with col_b:
-            clear_btn = st.button("🗑️ Clear", width="stretch")
+            clear_btn = st.button("🗑️ Clear", use_container_width=True)
             if clear_btn:
-                st.session_state.current_text = ""
+                st.session_state.main_input = ""
                 st.rerun()
         
         if analyze_btn and user_input.strip():
@@ -469,14 +470,14 @@ with tab1:
                                     'thickness': 0.75,
                                     'value': 80}}))
                         fig.update_layout(height=250, margin=dict(l=20, r=20, t=40, b=20))
-                        st.plotly_chart(fig, width="stretch")
+                        st.plotly_chart(fig, use_container_width=True)
                     
                     # Feedback section
                     st.markdown("---")
                     st.markdown("### Was this analysis correct?")
                     fb_col1, fb_col2 = st.columns(2)
                     with fb_col1:
-                        if st.button("✅ Yes, correct", width="stretch"):
+                        if st.button("✅ Yes, correct", use_container_width=True):
                             st.session_state.feedback_data.append({
                                 'text': user_input,
                                 'prediction': int(prediction),
@@ -485,7 +486,7 @@ with tab1:
                             })
                             st.success("Thank you for your feedback!")
                     with fb_col2:
-                        if st.button("❌ No, incorrect", width="stretch"):
+                        if st.button("❌ No, incorrect", use_container_width=True):
                             st.session_state.feedback_data.append({
                                 'text': user_input,
                                 'prediction': int(prediction),
@@ -576,7 +577,7 @@ with tab2:
                             st.metric("Avg Confidence", f"{avg_conf:.1%}")
                         
                         # Results table
-                        st.dataframe(df_results, width="stretch")
+                        st.dataframe(df_results, use_container_width=True)
                         
                         # Download results
                         csv = df_results.to_csv(index=False).encode('utf-8')
@@ -613,7 +614,7 @@ with tab2:
                         })
                     
                     df_batch = pd.DataFrame(batch_results)
-                    st.dataframe(df_batch, width="stretch")
+                    st.dataframe(df_batch, use_container_width=True)
                     
                     # Visual summary
                     hate_count = (df_batch['result'] == "🚫 Hate").sum()
@@ -624,7 +625,7 @@ with tab2:
                         hole=0.4
                     )])
                     fig.update_layout(title="Batch Analysis Summary", height=400)
-                    st.plotly_chart(fig, width="stretch")
+                    st.plotly_chart(fig, use_container_width=True)
             else:
                 st.warning("Please enter some comments")
 
@@ -667,7 +668,7 @@ with tab3:
             )
         with col2:
             st.markdown("<br>", unsafe_allow_html=True)  # Align button with input
-            submit_button = st.form_submit_button("Send", type="primary", width="stretch")
+            submit_button = st.form_submit_button("Send", type="primary", use_container_width=True)
         
         if submit_button and chat_input.strip():
             # Analyze message
@@ -728,21 +729,21 @@ with tab4:
         fig = px.line(df_history, x='timestamp_parsed', y='confidence', 
                       color='prediction', title="Confidence Over Time",
                       labels={'confidence': 'Confidence', 'timestamp_parsed': 'Time'})
-        st.plotly_chart(fig, width="stretch")
+        st.plotly_chart(fig, use_container_width=True)
         
         # Row 3: Distribution
         col1, col2 = st.columns(2)
         with col1:
             fig = px.pie(df_history, names='prediction', title="Prediction Distribution",
                         color='prediction', color_discrete_map={0: '#84fab0', 1: '#f5576c'})
-            st.plotly_chart(fig, width="stretch")
+            st.plotly_chart(fig, use_container_width=True)
         
         with col2:
             fig = px.histogram(df_history, x='confidence', nbins=20, 
                               title="Confidence Distribution",
                               color_discrete_sequence=['#667eea'])
             fig.update_layout(bargap=0.05)
-            st.plotly_chart(fig, width="stretch")
+            st.plotly_chart(fig, use_container_width=True)
         
         # Feedback summary
         if st.session_state.feedback_data:
@@ -752,7 +753,7 @@ with tab4:
             fig = px.bar(feedback_counts, x=feedback_counts.index, y='count',
                         title="Feedback Distribution", color=feedback_counts.index,
                         color_discrete_map={'correct': '#84fab0', 'incorrect': '#f5576c'})
-            st.plotly_chart(fig, width="stretch")
+            st.plotly_chart(fig, use_container_width=True)
     else:
         st.info("No data yet. Start analyzing comments to see analytics!")
 
