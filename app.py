@@ -385,15 +385,16 @@ with tab1:
             placeholder="Example: Tum bohat bure ho, tumhari soch kharab hai..."
         )
         
+        # Callback to safely clear the main input (avoids StreamlitAPIException)
+        def clear_main_input():
+            st.session_state.main_input = ""
+
         # Analysis options
         col_a, col_b, col_c = st.columns([1, 1, 2])
         with col_a:
             analyze_btn = st.button("Analyze Now", type="primary", use_container_width=True)
         with col_b:
-            clear_btn = st.button("🗑️ Clear", use_container_width=True)
-            if clear_btn:
-                st.session_state.main_input = ""
-                st.rerun()
+            st.button("🗑️ Clear", use_container_width=True, on_click=clear_main_input)
         
         if analyze_btn and user_input.strip():
             with st.spinner("🔍 Analyzing text..."):
