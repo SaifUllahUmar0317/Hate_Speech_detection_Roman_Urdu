@@ -2,6 +2,13 @@
 
 A Machine Learning powered web application designed to detect and filter Hate Speech in Roman Urdu text. This tool uses Natural Language Processing (NLP) to classify comments as either **Normal** or **Hate Speech**, helping to create a safer online environment. The system includes a complete training pipeline with multiple models, hyperparameter tuning, and an interactive Streamlit dashboard.
 
+---
+
+# 📸 Application Interface
+
+| Normal Prediction | Hate Speech Prediction |
+|-------------------|------------------------|
+| <img src="images/NormalSpeech.png" width="450"> | <img src="images/HateSpeech.png" width="450"> |
 
 [Watch the demo](https://hatespeechrecognition.streamlit.app/)
 
