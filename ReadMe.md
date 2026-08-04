@@ -266,8 +266,8 @@ This ensures a balance between performance and efficiency.
 ## Step 1: Clone Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
-cd YOUR_REPO_NAME
+git clone https://github.com/SaifUllahUmar0317/Hate_Speech_detection_Roman_Urdu.git
+cd Hate_Speech_detection_Roman_Urdu
 ```
 
 ## Step 2: Create Virtual Environment (Recommended)
